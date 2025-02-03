@@ -77,7 +77,7 @@ trap.points <- a + 1:99*(delta.x)
   skeleton below. When you are done, remove \texttt{eval=FALSE} to show that
   the function provides the expected result for the example above.\\
   \textbf{Solution:}
-<<eval=FALSE, size="scriptsize", warning=FALSE, message=FALSE>>=
+<<size="scriptsize", warning=FALSE, message=FALSE>>=
 riemann.sums <- function(fnct,                        # function to integrate
                          a,                           # lower bound of integral
                          b,                           # upper bound of integral
@@ -98,14 +98,21 @@ riemann.sums <- function(fnct,                        # function to integrate
   ######################################
   # Compute Area
   ######################################
+  area <- 0
+  delta.x <- (b-a)/n.rect
+  end.point <- (n.rect-1)
   if(method == "Left"){
-    # Add necessary code here
+    left.points <- a + 0:end.point*(delta.x)
+    area <- sum(delta.x*(fnct(left.points)))
   }else if(method == "Right"){
-    # Add necessary code here
+    right.points <- a + 1:n.rect*(delta.x)
+    area <- sum(delta.x*(fnct(right.points)))
   }else if(method == "Midpoint"){
-    # Add necessary code here
+    mid.points <- (left.points+right.points)/2
+    area <- sum(delta.x*(fnct(mid.points)))
   }else if(method == "Trapezoidial"){
-    # Add necessary code here
+    trap.points <- a + 1:end.point*(delta.x)
+    area <- 1/2*delta.x*(fnct(a)) + sum(1/2*delta.x*(2*fnct(trap.points))) + 1/2*delta.x*(fnct(b))
   }else{
     stop("Please select a valid method (e.g., 'Left', 'Right', 'Midpoint', 'Trapezoidial')")
   }
